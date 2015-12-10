@@ -1,0 +1,6 @@
+---
+- include: RedHat6.yml
+  when: ansible_distribution_major_version == "6"
+
+- include: RedHat7.yml
+  when: ansible_distribution_major_version == "7"

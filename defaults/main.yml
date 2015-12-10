@@ -1,0 +1,8 @@
+---
+# defaults file for intuitive.php56
+php:
+  php56packages:
+    - php
+    - php-mysqlnd
+    - php-mbstring
+    - php-gd

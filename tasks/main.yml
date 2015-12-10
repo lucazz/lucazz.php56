@@ -1,0 +1,10 @@
+---
+# tasks file for intuitive.php56
+# Include variables and define needed variables.
+- include: RedHat.yml
+  when:
+    ansible_os_family == 'RedHat'
+
+- include: Debian.yml
+  when:
+    ansible_os_family == 'Debian'

@@ -1,0 +1,24 @@
+---
+- name: Installing dependency mirros
+  yum: name={{ item }} state=present
+  with_items:
+    - https://dl.fedoraproject.org/pub/epel/6/x86_64/epel-release-6-8.noarch.rpm
+    - http://rpms.remirepo.net/enterprise/remi-release-6.rpm
+
+- name: Enabling Remis repo
+  template: src=centos6remi.repo.j2 dest=/etc/yum.repos.d/remi.repo owner=root group=root mode=0644
+  when: ansible_distribution_major_version == "6"
+
+- name: Enabling Remis repo
+  template: src=centos7remi.repo.j2 dest=/etc/yum.repos.d/remi.repo owner=root group=root mode=0644
+  when: ansible_distribution_major_version == "7"
+
+- name: Installing php55 packages
+  yum: name={{ item }} state=present
+  with_items:
+    - "{{ php.php56packages }}"
+
+- name: Enabling php module repo
+  template: src=php.conf.j2 dest=/etc/httpd/conf.d/php.conf owner=root group=root mode=0644
+  notify:
+    - restart httpd
